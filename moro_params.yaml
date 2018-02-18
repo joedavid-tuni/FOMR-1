@@ -1,0 +1,14 @@
+base_local_planner: "dwa_local_planner/DWAPlannerROS"
+base_global_planner: "carrot_planner/CarrotPlanner"
+
+DWAPlannerROS:
+  max_rot_vel: 0.5
+  yaw_goal_tolerance: 0.05
+  xy_goal_tolerance: 0.10
+
+global_costmap:    
+   static_map: false
+   rolling_window: true
+   plugins:
+     - {name: obstacle_layer,  type: "costmap_2d::VoxelLayer"}
+     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}

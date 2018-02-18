@@ -1,0 +1,20 @@
+<!-- 
+
+global_frame: odom
+   robot_base_frame: base_link 
+
+-->
+<launch>
+  <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch">
+    <arg name="world_file" value="$(find turtlebot_gazebo)/worlds/empty.world"/>
+  </include>
+
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+    <arg name="global_frame_id" value="map"/>
+    <arg name="custom_param_file" value="moro_params.yaml"/>
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="map_to_odom_transform" args="5 29 0 0 0 0 /map /odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="foot_to_link_transform" args="0 0 0 0 0 0 /base_footprint /base_link 100"/> 
+
+</launch>
